@@ -15,6 +15,18 @@ if(saved) {
 
 function saveTodos(){
   localStorage.setItem(
-    STORAGE_KEY,JSON.stringify(state.todos)
+    STORAGE_KEY,
+    JSON.stringify(state.todos)
     );
+}
+
+function addTodo(text){
+  state.todos:push({
+    id:Date.now(),
+    text,
+    completed:false
+  });
+
+  saveTodos();
+  render();
 }
