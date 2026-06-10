@@ -76,6 +76,7 @@ const list = document.getElementById("todo-list");
 
 function render(){
   list.innerHTML ="";
+  
    const todos=getFilteredTodos();
 
   todosforEach(todo=>{
@@ -88,12 +89,27 @@ function render(){
     }
 
     li.innerHTML="";
+    <span>${todo.text}</span>
 
-    const todos = getFilteredTodos();
+               <div class="actions">
+               <button class="toggle">
+               ${todo.completed ? "Undo" : "Done"}
+  </button>
 
-    todos.forEach(todo =>{
+  <button class="edit">
+    Edit
+    </button>
 
- 
+  <button class="delete">
+     Delete
+    </button>
+    </div>
+  ;
+
+  list.appendChild(li);
+});
+}
+
 
 
 
