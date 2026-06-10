@@ -1,10 +1,13 @@
 const STORAGE_KEY = "todos";
 
 let state={
-  todos:[];
-filter:"a";
+  todos:[],
+filter:"all";
 };
 
+const list=document.getElementById("todo-list");
+
+//load Saved Data
 function loadTodos(){
   const saved= localStorage getItem(STORAGE_KEY);
 
@@ -13,6 +16,7 @@ if(saved) {
 }
 }
 
+//Save data
 function saveTodos(){
   localStorage.setItem(
     STORAGE_KEY,
@@ -20,6 +24,7 @@ function saveTodos(){
     ); 
 }
 
+//Create task
 function addTodo(text){
   state.todos:push({
     id:Date.now(),
@@ -31,7 +36,7 @@ function addTodo(text){
   render();
 }
 
-
+//Update Task
 function editTodo(id){
   const todo = state.todos.find(t=>t.id===id);
 
@@ -45,6 +50,8 @@ function editTodo(id){
   render();
 }
 
+
+//Toggle Complete
 function toggleTodo(id){
   const  todo = state.todos.find(t=>t.id===id);
    todo completed=!todo completed;
@@ -52,6 +59,8 @@ function toggleTodo(id){
   render();
 }
 
+
+//Delete Task
 function deleteTodo(id){
   state.todos=state.todos.filter(
     todo=>todo.id!==id
@@ -60,7 +69,7 @@ function deleteTodo(id){
   render();
 }
 
-
+//Filter Task
 function getFilteredTodos(){
   switch(state.filter){
       case"active";
