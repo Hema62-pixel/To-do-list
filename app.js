@@ -2,17 +2,17 @@ const STORAGE_KEY = "todos";
 
 let state={
   todos:[],
-filter:"all";
+filter:"all",
 };
 
 const list=document.getElementById("todo-list");
 
 //load Saved Data
 function loadTodos(){
-  const saved= localStorage getItem(STORAGE_KEY);
+  const saved= localStorage.getItem(STORAGE_KEY);
 
 if(saved) {
-  state.todos=JSON parse(saved);
+  state.todos=JSON.parse(saved);
 }
 }
 
@@ -26,7 +26,7 @@ function saveTodos(){
 
 //Create task
 function addTodo(text){
-  state.todos:push({
+  state.todos.push({
     id:Date.now(),
     text,
     completed:false
@@ -54,7 +54,7 @@ function editTodo(id){
 //Toggle Complete
 function toggleTodo(id){
   const  todo = state.todos.find(t=>t.id===id);
-   todo completed=!todo completed;
+   todo.completed=!todo.completed;
   saveTodos();
   render();
 }
@@ -72,23 +72,24 @@ function deleteTodo(id){
 //Filter Task
 function getFilteredTodos(){
   switch(state.filter){
-      case"active";
-      return state.todos.filter(
-        todo=>todo.completed
-        );
+      case"active":
+      return state.todos.filter(todo=>!todo.completed);
+
+      case"completed";
+        return state.todos.filter(todo=>todo.completed);
+      
     default:
       return state.todos;
   }
 }
 
-const list = document.getElementById("todo-list");
-
+//Render tasks
 function render(){
   list.innerHTML ="";
   
    const todos=getFilteredTodos();
 
-  todosforEach(todo=>{
+  todos.forEach(todo=>{
     const li=document.createElement("li");
 
     li.dataset.id=todo.id;
@@ -99,25 +100,40 @@ function render(){
 
     li.innerHTML="";
     <span>${todo.text}</span>
-
-               <div class="actions">
-               <button class="toggle">
-               ${todo.completed ? "Undo" : "Done"}
-  </button>
-
-  <button class="edit">
-    Edit
-    </button>
-
-  <button class="delete">
-     Delete
-    </button>
+    <div class="actions">
+    <button class="toggle">
+    ${todo.completed ? "Undo" : "Done"}
+   </button>
+   <button class="edit">Edit</button>
+   <button class="delete">Delete</button>
     </div>
   ;
 
   list.appendChild(li);
 });
 }
+
+//Add Task Event
+getElementById("todo-form")
+addEventListener("submit",e=>{
+  preventDefault();
+
+  const input=document.getElementById("todo-input");
+  const text = input.value.trim();
+
+  if(!text)retrun;
+
+  addTodo(text);
+  input.value ="";
+});
+
+//Delegated Events
+list.addEventListener("click",e=>{
+  const li=e.target.closest("li");
+
+  if(!li)return;
+
+  const id=Number(li.dataset
 
 
 
