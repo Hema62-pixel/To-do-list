@@ -59,7 +59,7 @@ function toggleTodo(id){
   render();
 }
 
-
+  
 //Delete Task
 function deleteTodo(id){
   state.todos=state.todos.filter(
