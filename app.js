@@ -133,7 +133,45 @@ list.addEventListener("click",e=>{
 
   if(!li)return;
 
-  const id=Number(li.dataset
+ const id = Number(li.dataset.id);
+
+  if (e.target.classList.contains("toggle")) {
+    toggleTodo(id);
+  }
+
+  if (e.target.classList.contains("edit")) {
+    editTodo(id);
+  }
+
+  if (e.target.classList.contains("delete")) {
+    deleteTodo(id);
+  }
+});
+
+// Filter Buttons
+document
+  .querySelector(".filters")
+  .addEventListener("click", e => {
+    if (!e.target.dataset.filter) return;
+
+    state.filter = e.target.dataset.filter;
+
+    document
+      .querySelectorAll(".filters button")
+      .forEach(btn => btn.classList.remove("active"));
+
+    e.target.classList.add("active");
+
+    render();
+  });
+
+// Initialize App
+function init() {
+  loadTodos();
+  render();
+}
+
+init();
 
 
 
