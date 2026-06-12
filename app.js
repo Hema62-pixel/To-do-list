@@ -1,3 +1,4 @@
+alert("JS Loaded");
 const STORAGE_KEY = "todos";
 
 let state={
